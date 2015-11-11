@@ -23,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
+        // Bind DbDropdownRepository for DropdownRepositoryInterface
+        $this->app->bind(
+            'App\Repos\Dropdowns\DropdownRepositoryInterface',
+            'App\Repos\Dropdowns\DbDropdownRepository'
+        );
+
     }
 }
