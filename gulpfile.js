@@ -27,7 +27,8 @@ elixir.config.vendorcss = [
     'jquery-ui/themes/start/theme.css',
     'dropzone/dist/basic.css',
     'dropzone/dist/dropzone.css',
-    'sweetalert/dist/sweetalert.css'
+    'sweetalert/dist/sweetalert.css',
+    'font-awesome/css/font-awesome.css'
 ];
 
 
@@ -36,9 +37,16 @@ elixir(function(mix) {
         includePaths : [ bower_path + 'bootstrap-sass/assets/stylesheets' ]
     });
 
+    // Compile vendor JS and CSS
     mix.scripts(this.config.vendorjs, './public/js/vendor.js', bower_path);
     mix.styles(this.config.vendorcss, './public/css/vendor.css', bower_path);
 
+    // Copy font files to public/fonts
+    mix.copy(bower_path + 'bootstrap-sass/assets/fonts/bootstrap', 'public/fonts');
+    mix.copy(bower_path + 'font-awesome/fonts', 'public/fonts');
+
+
+    // Version files for long term caching and cache busting
     //mix.version(['css/app.css', 'css/vendor.css', 'js/vendor.js']);
 
 });
