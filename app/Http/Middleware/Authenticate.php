@@ -15,6 +15,16 @@ class Authenticate
     protected $auth;
 
     /**
+     * Don't require certain routes to be authenticated
+     */
+    protected $safe = [
+        '/',
+        'auth/login',
+        'auth/register',
+        'password/email',
+    ];
+
+    /**
      * Create a new filter instance.
      *
      * @param  Guard  $auth
@@ -34,11 +44,19 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
+        // any clockwork request should pass through
+        if(strpos($request->path, 'clockwork') !== false) {
+            return $next($request);
+        }
+
+        // Only authenticate on unsafe pages
+        if ($this->auth->guest () && ! in_array ( $request->path (), $this->safe )) {
+            if ($request->ajax ()) {
+                return response ( 'Unauthorized.', 401 );
             } else {
-                return redirect()->guest('auth/login');
+                return redirect ()->guest ( '/' )->withErrors ( [
+                    'access' => 'Please log-in.'
+                ] );
             }
         }
 
