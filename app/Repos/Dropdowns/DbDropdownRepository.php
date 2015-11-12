@@ -20,7 +20,7 @@ class DbDropdownRepository implements DropdownRepositoryInterface {
 
     /**
      * This function takes a key and returns the dropdown associated with that model.
-     * @param $model
+     * @param string $model
      * @param int $parent_id
      * @return mixed
      */
