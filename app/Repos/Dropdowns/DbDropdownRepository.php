@@ -48,7 +48,7 @@ class DbDropdownRepository implements DropdownRepositoryInterface {
      * @throws IdDoesNotMatchModelException
      * @throws ParentDoesNotExistException
      */
-    public function addItem(Request $request)
+    public function addItem($request)
     {
         $parent_id = $request->get('parent_id');
 
@@ -98,7 +98,7 @@ class DbDropdownRepository implements DropdownRepositoryInterface {
      * @param Request $request
      * @throws IdDoesNotMatchModelException
      */
-    public function deleteItem(Request $request)
+    public function deleteItem($request)
     {
         //Check that id is within model
         $item = $this->model->findOrFail($request->get('id'));
@@ -114,7 +114,7 @@ class DbDropdownRepository implements DropdownRepositoryInterface {
     /**
      * @param Request $request
      */
-    public function sort(Request $request)
+    public function sort($request)
     {
         //Set up our order array
         $order = [];

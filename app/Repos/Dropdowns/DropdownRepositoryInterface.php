@@ -7,9 +7,9 @@ interface DropdownRepositoryInterface extends RepositoryInterface {
 
     public function getList($key);
 
-    public function addItem(Request $request);
+    public function addItem($request);
 
-    public function deleteItem(Request $request);
+    public function deleteItem($request);
 
-    public function sort(Request $request);
+    public function sort($request);
 }

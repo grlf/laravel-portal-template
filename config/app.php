@@ -143,6 +143,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Clockwork\Support\Laravel\ClockworkServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -206,6 +207,7 @@ return [
          */
         'Flash'     => Laracasts\Flash\Flash::class,
         'Clockwork' => Clockwork\Support\Laravel\Facade::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
     ],
 
 ];

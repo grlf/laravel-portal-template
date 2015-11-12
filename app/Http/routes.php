@@ -14,3 +14,24 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// API ROUTES ==================================
+Route::group(array('prefix' => 'api/v1/'), function () {
+
+
+    //Dropdowns
+    Route::post('dd/list', 'DropdownController@index');
+    Route::patch('dd/sort', 'DropdownController@sort');
+    Route::post('dd', 'DropdownController@store');
+    Route::delete('dd', 'DropdownController@destroy');
+
+
+    // Files
+    Route::resource('files', 'FileController', array(
+        'only' => array('store')
+    ));
+    Route::post('files/delete', 'FileController@deleteMultiple');
+
+
+});

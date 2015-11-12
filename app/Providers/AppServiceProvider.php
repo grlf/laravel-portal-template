@@ -30,5 +30,11 @@ class AppServiceProvider extends ServiceProvider
             'App\Repos\Dropdowns\DbDropdownRepository'
         );
 
+        // Bind DbFileRepository for FileRepositoryInterface
+        $this->app->bind(
+            'App\Repos\Files\FileRepositoryInterface',
+            'App\Repos\Files\DbFileRepository'
+        );
+
     }
 }

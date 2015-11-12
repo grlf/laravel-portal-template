@@ -6,7 +6,7 @@ use App\Http\Requests\DropdownRequest;
 use App\Repos\Dropdowns\DropdownRepositoryInterface;
 use Illuminate\Http\Request;
 
-class DropdownAPIController extends Controller {
+class DropdownController extends Controller {
 
     protected $dropdown;
 
