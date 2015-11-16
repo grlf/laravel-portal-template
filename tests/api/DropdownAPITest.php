@@ -179,6 +179,7 @@ class DropdownAPITest extends TestCase
      */
     public function it_can_list_the_dropdowns_associated_with_a_model()
     {
+        \Artisan::call('cache:clear');
         $this->post('api/v1/dd/list',
             [],
             $this->api_header

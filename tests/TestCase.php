@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TestCase extends \Illuminate\Foundation\Testing\TestCase {
@@ -13,8 +14,15 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase {
      */
     public function migrate()
     {
-        \Artisan::call('migrate:refresh');
+        \Artisan::call('migrate');
+    }
 
+    /**
+     * @before
+     */
+    public function create_test_user()
+    {
+        $user = factory(\App\User::class)->create();
     }
 
     /**
