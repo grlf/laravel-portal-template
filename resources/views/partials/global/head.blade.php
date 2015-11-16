@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <!-- Bootstrap and everything CSS -->
-    <link href="/css/vendors.css" rel="stylesheet">
+    <link href="/css/vendor.css" rel="stylesheet">
     <!--  Application SASS -->
     <link href="/css/app.css" rel="stylesheet">
 

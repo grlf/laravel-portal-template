@@ -20,6 +20,8 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
+    protected $redirectTo;
+
     /**
      * Create a new password controller instance.
      *
@@ -27,6 +29,8 @@ class PasswordController extends Controller
      */
     public function __construct()
     {
+        $this->redirectTo = \Config::get('portal.auth_login_home');
+
         $this->middleware('guest');
     }
 }

@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class Authenticate
-{
+class Authenticate {
+
     /**
      * The Guard implementation.
      *
@@ -22,12 +22,13 @@ class Authenticate
         'auth/login',
         'auth/register',
         'password/email',
+        'password/reset',
     ];
 
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
+     * @param  Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -37,25 +38,30 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         // any clockwork request should pass through
-        if(strpos($request->path, 'clockwork') !== false) {
+        if ( strpos($request->path(), 'clockwork') !== false ) {
+            return $next($request);
+        }
+
+        // any password reset request should pass through
+        if ( strpos($request->path(), 'reset') !== false ) {
             return $next($request);
         }
 
         // Only authenticate on unsafe pages
-        if ($this->auth->guest () && ! in_array ( $request->path (), $this->safe )) {
-            if ($request->ajax ()) {
-                return response ( 'Unauthorized.', 401 );
+        if ( $this->auth->guest() && !in_array($request->path(), $this->safe) ) {
+            if ( $request->ajax() ) {
+                return response('Unauthorized.', 401);
             } else {
-                return redirect ()->guest ( '/' )->withErrors ( [
+                return redirect()->guest('/')->withErrors([
                     'access' => 'Please log-in.'
-                ] );
+                ]);
             }
         }
 

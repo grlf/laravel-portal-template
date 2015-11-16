@@ -14,10 +14,10 @@ var elixir = require('laravel-elixir');
 var bower_path = './vendor/bower_components/';
 
 elixir.config.vendorjs = [
-    'bootstrap-sass/assets/javascripts/bootstrap.js',
     'jquery/dist/jquery.js',
     'jquery-ui/jquery-ui.js',
     'jqueryui-touch-punch/jquery.ui.touch-punch.js',
+    'bootstrap-sass/assets/javascripts/bootstrap.js',
     'dropzone/dist/dropzone.js',
     'sweetalert/dist/sweetalert-dev.js'
 ];

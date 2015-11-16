@@ -3,3 +3,7 @@
 @import "vendors/bootstrap/variables";
 @import "bootstrap";
 @import "vendors/bootstrap/overrides";
+
+body {
+  padding-top: 60px;
+}
