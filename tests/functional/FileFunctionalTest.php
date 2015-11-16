@@ -2,13 +2,12 @@
 
 namespace App\Http\Utilities;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Mockery as m;
-use Tests\TestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Tests\Cases\TestCase;
 
 
-class FilesFunctionalTest extends TestCase
-{
+class FilesFunctionalTest extends TestCase {
 
     /**
      * @test
@@ -29,12 +28,13 @@ class FilesFunctionalTest extends TestCase
     }
 
 
-    public function image_for_item($fileable_type, $fileable_id){
+    public function image_for_item($fileable_type, $fileable_id)
+    {
 
         $fsPath = new \App\Repos\Files\File();
         $fsPath = $fsPath->getSystemPath();
         $file = m::mock(UploadedFile::class, [
-            'getClientMimeType' => 'image/jpeg',
+            'getClientMimeType'     => 'image/jpeg',
             'getClientOriginalName' => 'foo.jpg'
         ]);
         $file->shouldReceive('move')->once()->with($fsPath, time() . '-foo.jpg');
@@ -47,12 +47,13 @@ class FilesFunctionalTest extends TestCase
 
     }
 
-    public function non_image_for_item($fileable_type, $fileable_id){
+    public function non_image_for_item($fileable_type, $fileable_id)
+    {
 
         $fsPath = new \App\Repos\Files\File();
         $fsPath = $fsPath->getSystemPath();
         $file = m::mock(UploadedFile::class, [
-            'getClientMimeType' => 'text/html',
+            'getClientMimeType'     => 'text/html',
             'getClientOriginalName' => 'foo.html'
         ]);
         $file->shouldReceive('move')->once()->with($fsPath, time() . '-foo.html');
@@ -68,7 +69,8 @@ class FilesFunctionalTest extends TestCase
 }
 
 
-function time() {
+function time()
+{
 
     return 'now';
 }

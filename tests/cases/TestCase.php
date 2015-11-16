@@ -1,13 +1,16 @@
 <?php
 
-namespace Tests;
+namespace Tests\Cases;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+
 class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 
     use DatabaseTransactions;
+
+    protected $user;
 
     /**
      * @before
@@ -17,12 +20,9 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase {
         \Artisan::call('migrate');
     }
 
-    /**
-     * @before
-     */
     public function create_test_user()
     {
-        $user = factory(\App\User::class)->create();
+        $this->user = factory(\App\User::class)->create();
     }
 
     /**
@@ -39,7 +39,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase {
      */
     public function createApplication()
     {
-        $app = require __DIR__ . '/../bootstrap/app.php';
+        $app = require __DIR__ . '/../../bootstrap/app.php';
 
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
@@ -61,7 +61,8 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase {
     protected function login()
     {
         //Login as our test user
-        $user = User::findOrFail(1);
+        $this->create_test_user();
+        $user = User::findOrFail($this->user->id);
         $this->be($user);
 
         return $user;

@@ -1,15 +1,15 @@
 <?php
 
+use Tests\Cases\TestCase;
 use Tests\Traits\APITrait;
-use Tests\TestCase;
 
-class DropdownAPITest extends TestCase
-{
+class DropdownAPITest extends TestCase {
+
     use APITrait;
 
     private $parent_dd = [
         'model' => 'test.main',
-        'name' => 'Master Test Dropdown'
+        'name'  => 'Master Test Dropdown'
     ];
 
     //dd($this->response->getContent());
@@ -30,7 +30,7 @@ class DropdownAPITest extends TestCase
 
         $this->assertResponseStatus(422);
         $this->seeJson([
-            'name' => ['The name field is required.'],
+            'name'  => ['The name field is required.'],
             'model' => ['The model field is required.']
         ]);
 
@@ -49,7 +49,7 @@ class DropdownAPITest extends TestCase
             'dropdowns',
             [
                 'model' => $this->parent_dd['model'],
-                'name' => $this->parent_dd['name']
+                'name'  => $this->parent_dd['name']
             ]
         );
     }
@@ -71,7 +71,7 @@ class DropdownAPITest extends TestCase
 
         $this->assertResponseStatus(422);
         $this->seeJson([
-            'id' => ['The id field is required.'],
+            'id'    => ['The id field is required.'],
             'model' => ['The model field is required.']
         ]);
 
@@ -79,7 +79,7 @@ class DropdownAPITest extends TestCase
         $this->delete(
             '/api/v1/dd',
             [
-                'id' => $dd->id,
+                'id'    => $dd->id,
                 'model' => $dd->model
             ],
             $this->api_header
@@ -91,7 +91,7 @@ class DropdownAPITest extends TestCase
 
         //Check for soft delete
         $this->notSeeInDatabase('dropdowns', [
-            'id' => $dd->id,
+            'id'         => $dd->id,
             'deleted_at' => null
         ]);
     }
@@ -108,7 +108,7 @@ class DropdownAPITest extends TestCase
         $this->delete(
             '/api/v1/dd',
             [
-                'id' => $dd->id,
+                'id'    => $dd->id,
                 'model' => 'no.good.model'
             ],
             $this->api_header
@@ -116,7 +116,7 @@ class DropdownAPITest extends TestCase
 
         $this->seeStatusCode(500);
         $this->seeInDatabase('dropdowns', [
-            'id' => $dd->id,
+            'id'         => $dd->id,
             'deleted_at' => null
         ]);
     }
@@ -131,8 +131,8 @@ class DropdownAPITest extends TestCase
         $this->post(
             '/api/v1/dd',
             [
-                'name' => "Test Child Dropdown",
-                'model' => $parent->model,
+                'name'      => "Test Child Dropdown",
+                'model'     => $parent->model,
                 'parent_id' => $parent->id
             ],
             $this->api_header
@@ -144,10 +144,10 @@ class DropdownAPITest extends TestCase
 
         $child_id = json_decode($this->response->getContent())->id;
         $this->seeInDatabase('dropdowns', [
-            'id' => $child_id,
-            'name' => 'Test Child Dropdown',
+            'id'        => $child_id,
+            'name'      => 'Test Child Dropdown',
             'parent_id' => $parent->id,
-            'model' => $parent->model
+            'model'     => $parent->model
         ]);
     }
 
@@ -158,8 +158,8 @@ class DropdownAPITest extends TestCase
     {
         $this->post('api/v1/dd',
             [
-                'name' => "Test Child Dropdown",
-                'model' => $this->parent_dd['model'],
+                'name'      => "Test Child Dropdown",
+                'model'     => $this->parent_dd['model'],
                 'parent_id' => 9999
             ],
             $this->api_header
@@ -211,12 +211,12 @@ class DropdownAPITest extends TestCase
 
         factory(App\Repos\Dropdowns\Dropdown::class, 3)->create([
             'parent_id' => $parent->id,
-            'model' => 'test.2'
+            'model'     => 'test.2'
         ]);
 
         $this->post('api/v1/dd/list',
             [
-                'model' => 'test.2',
+                'model'     => 'test.2',
                 'parent_id' => $parent->id
             ],
             $this->api_header
@@ -238,7 +238,7 @@ class DropdownAPITest extends TestCase
         $dd = factory(App\Repos\Dropdowns\Dropdown::class)->create(
             [
                 'parent_id' => 99,
-                'model' => 'new.test.model'
+                'model'     => 'new.test.model'
             ]
         );
 
@@ -281,7 +281,7 @@ class DropdownAPITest extends TestCase
         $count = 1;
         foreach ($items as $id => $val) {
             $this->seeInDatabase('dropdowns', [
-                'id' => $id,
+                'id'    => $id,
                 'order' => $count
             ]);
             $count++;
@@ -297,9 +297,9 @@ class DropdownAPITest extends TestCase
 
         $this->patch('api/v1/dd/sort',
             [
-                'data' => [
+                'data'  => [
                     'sort_id' => $dd->id,
-                    'order' => 99
+                    'order'   => 99
                 ],
                 'model' => 'no.good.model'
             ],
@@ -308,7 +308,7 @@ class DropdownAPITest extends TestCase
 
         $this->notSeeInDatabase('dropdowns',
             [
-                'id' => $dd->id,
+                'id'    => $dd->id,
                 'order' => 99
             ]);
     }
