@@ -13,9 +13,10 @@
         <div id="footer-container">
             @include('partials.global.footer')
         </div>
-
-
-                <!-- ALL JS  -->
+        <!-- ALL JS  -->
         <script src="/js/vendor.js"></script>
+        <script src="/js/portal.js"></script>
+
+        @include('partials.global.flash')
     </body>
 </html>

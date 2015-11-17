@@ -31,6 +31,10 @@ elixir.config.vendorcss = [
     'font-awesome/css/font-awesome.css'
 ];
 
+elixir.config.portaljs = [
+    'global/notify.js'
+];
+
 
 elixir(function(mix) {
     mix.sass('app.scss', null, {
@@ -45,6 +49,7 @@ elixir(function(mix) {
     mix.copy(bower_path + 'bootstrap-sass/assets/fonts/bootstrap', 'public/fonts');
     mix.copy(bower_path + 'font-awesome/fonts', 'public/fonts');
 
+    mix.scripts(this.config.portaljs, './public/js/portal.js');
 
     // Version files for long term caching and cache busting
     //mix.version(['css/app.css', 'css/vendor.css', 'js/vendor.js']);
